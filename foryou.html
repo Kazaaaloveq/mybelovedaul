@@ -1,0 +1,676 @@
+<title>This is for you</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Nunito+Sans:wght@400;600;700&family=Caveat:wght@500;600&display=swap">
+<style>
+:root{
+  /* Layout: left-aligned editorial hero with botanical line art, a two-column doll stage, a staggered grid of photo frames, then a letter beside a reasons card. */
+  --bg:#faf1f1; --bg2:#f4e4e6; --surface:#fff8f8; --ink:#3b1f2b; --ink-soft:#7a5562;
+  --rose:#b0405c; --on-rose:#ffffff; --rose-soft:#f0c4cd; --line:#e6ccd1; --leaf:#b7c8b1;
+  --gold:#a8843f; --gold-1:#e3cb94; --gold-2:#a8843f; --gold-3:#f0e0b4; --wood:#6b4636;
+  --stage-1:#fff4f2; --stage-2:#f5d6dc; --mat:#fffaf6; --mat-ink:#7a5562; --mat-line:#dcb9c1; --paper:#fffdfb;
+  --shadow:rgba(90,30,50,.28);
+  --f-display:'Fraunces',Georgia,'Times New Roman',serif;
+  --f-body:'Nunito Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-hand:'Caveat','Segoe Script','Bradley Hand',cursive;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1c1117; --bg2:#25171e; --surface:#2d1c25; --ink:#f7e9eb; --ink-soft:#cfaab4;
+    --rose:#e87f99; --on-rose:#2a0f19; --rose-soft:#5e2a3b; --line:#4b2e3a; --leaf:#4f6b53; --gold:#d8b36e;
+    --stage-1:#3b2331; --stage-2:#22141b; --shadow:rgba(0,0,0,.55); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1c1117; --bg2:#25171e; --surface:#2d1c25; --ink:#f7e9eb; --ink-soft:#cfaab4;
+  --rose:#e87f99; --on-rose:#2a0f19; --rose-soft:#5e2a3b; --line:#4b2e3a; --leaf:#4f6b53; --gold:#d8b36e;
+  --stage-1:#3b2331; --stage-2:#22141b; --shadow:rgba(0,0,0,.55); color-scheme:dark;
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--f-body);overflow-x:hidden}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2{font-family:var(--f-display);margin:0;text-wrap:balance;font-variation-settings:"opsz" 144}
+h1{font-weight:300;font-size:clamp(2.9rem,10vw,5.8rem);line-height:1.02;letter-spacing:-.02em}
+h2{font-weight:400;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.1;letter-spacing:-.01em}
+h1 em,h2 em{font-style:italic;color:var(--rose);font-weight:400}
+p{margin:0}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);margin-bottom:1rem}
+.sub{color:var(--ink-soft);max-width:52ch;margin-top:1rem}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+
+.btn{font:600 .95rem var(--f-body);padding:.75rem 1.3rem;min-height:44px;border-radius:999px;border:1.5px solid transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;text-decoration:none;transition:transform .2s,background .2s,border-color .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--rose);color:var(--on-rose)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--rose)}
+.btn.soft{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn.soft:hover{border-color:var(--rose);color:var(--rose)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-bottom:clamp(56px,10vw,110px)}
+.hero .wrap{position:relative;z-index:1}
+.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:1.1rem}
+.mark{display:inline-flex;align-items:center;gap:.5rem;font:italic 400 1.05rem var(--f-display);color:var(--ink)}
+.mark svg{width:22px;height:22px}
+.hero-body{padding-top:clamp(40px,9vw,96px)}
+.lede{font-size:clamp(1.05rem,2.4vw,1.25rem);color:var(--ink-soft);max-width:34rem;margin-top:1.4rem}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+.counter{margin-top:2rem;font-family:var(--f-display);font-style:italic;font-size:1.15rem;color:var(--ink-soft)}
+.counter strong{font-style:normal;font-weight:500;color:var(--rose);font-variant-numeric:tabular-nums}
+.hero-art{position:absolute;right:-14px;top:24px;width:min(50vw,360px);height:auto;opacity:.9;z-index:0;pointer-events:none}
+@media (max-width:640px){.hero-art{opacity:.32;width:64vw}}
+
+/* doll */
+.band{background:var(--bg2);padding-block:clamp(56px,9vw,104px)}
+.doll-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,72px);align-items:center}
+@media (max-width:800px){.doll-grid{grid-template-columns:minmax(0,1fr)}}
+.stage{position:relative;width:100%;max-width:460px;margin-inline:auto;aspect-ratio:1/1.22;border-radius:32px;border:1px solid var(--line);background:radial-gradient(circle at 50% 42%,var(--stage-1),var(--stage-2) 72%);display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+#bear{width:88%;height:auto;display:block;margin-bottom:2%;touch-action:manipulation}
+.bubble{position:absolute;top:5%;left:50%;transform:translateX(-50%);width:max-content;max-width:84%;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:.65rem 1rem;font-size:.95rem;line-height:1.45;text-align:center;box-shadow:0 12px 24px -14px var(--shadow);z-index:2}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-7px;width:12px;height:12px;background:var(--surface);border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:translateX(-50%) rotate(45deg)}
+.bubble.pop{animation:popin .28s ease-out}
+.hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+.heart{position:absolute;color:var(--rose);opacity:0;animation:up 2s ease-out forwards}
+.heart svg{width:100%;height:100%;fill:currentColor;display:block}
+.doll-copy .sub{margin-top:1.1rem}
+.doll-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin-top:1.8rem;max-width:380px}
+.tally{margin-top:1.4rem;font-size:.88rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.hit{fill:#000;fill-opacity:0;cursor:pointer}
+
+/* bear motion */
+#breath{transform-origin:200px 420px;animation:breathe 4.6s ease-in-out infinite alternate}
+#body{transform-origin:200px 420px}
+#headTilt,#head{transform-origin:200px 250px}
+#headTilt{transition:transform .25s ease-out}
+#eyes{transition:transform .15s ease-out}
+.eye{animation:blink 5.2s infinite;transform-box:fill-box;transform-origin:center}
+#nose{transform-origin:200px 197px}
+#bow{transform-origin:200px 268px}
+.arm{transition:transform .45s cubic-bezier(.3,1.35,.5,1)}
+#armL{transform-origin:118px 262px}
+#armR{transform-origin:282px 262px}
+#bear.hugging #armL{transform:rotate(-50deg)}
+#bear.hugging #armR{transform:rotate(50deg)}
+#bear.waving #armR{animation:wave 2.2s ease-in-out}
+.a-squish{animation:squish .8s ease-out}
+.a-pat{animation:pat .8s ease-in-out}
+.a-boop{animation:boop .45s ease-out}
+.a-recoil{animation:recoil .45s ease-out}
+.a-wiggle{animation:wiggle .7s ease-in-out}
+#bear.paused *{animation-play-state:paused!important}
+.blush{opacity:0;transition:opacity .35s}
+#bear.blushing .blush{opacity:.7}
+.m-happy,.m-kiss,.happyEyes{opacity:0;transition:opacity .15s}
+#bear.s-happy .m-happy,#bear.s-kiss .m-kiss{opacity:1}
+#bear.s-happy .m-neutral,#bear.s-kiss .m-neutral{opacity:0}
+#bear.s-happy .happyEyes,#bear.s-kiss .happyEyes{opacity:1}
+#bear.s-happy #eyes,#bear.s-kiss #eyes{opacity:0}
+.m-neutral{transition:opacity .15s}
+
+/* surat-surat */
+.letters-sec{padding-block:clamp(56px,9vw,104px)}
+.env-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(24px,3vw,36px) clamp(20px,3vw,32px);margin-top:2.4rem;align-items:start}
+.env{min-width:0}
+.env-btn{display:block;width:100%;text-align:left;background:none;border:0;padding:0;cursor:pointer;color:inherit;font:inherit}
+.env-art{position:relative;display:block;aspect-ratio:5/3;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;perspective:600px;box-shadow:0 16px 26px -20px var(--shadow);transition:transform .25s}
+.env-btn:hover .env-art{transform:translateY(-3px)}
+.flap{position:absolute;left:0;right:0;top:0;height:62%;background:var(--rose-soft);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top center;transition:transform .55s ease,opacity .55s}
+.is-open .flap{transform:rotateX(180deg);opacity:0}
+.seal{position:absolute;left:50%;top:58%;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;background:var(--rose);color:var(--on-rose);display:grid;place-items:center;box-shadow:0 4px 10px -4px var(--shadow);transition:opacity .3s,transform .3s}
+.seal svg{width:18px;height:17px;fill:currentColor}
+.is-open .seal{opacity:0;transform:scale(.6)}
+.env-label{display:block;margin-top:.9rem;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.env-label strong{display:block;margin-top:.15rem;font:italic 400 1.4rem/1.2 var(--f-display);letter-spacing:0;text-transform:none;color:var(--ink)}
+.paper{margin-top:.9rem;padding:1rem 1.15rem;background:var(--surface);border:1px solid var(--line);border-radius:8px;font:300 1.02rem/1.7 var(--f-display);font-variation-settings:"opsz" 24}
+.paper.pop{animation:fade .5s ease-out}
+.promises{margin-top:clamp(48px,8vw,80px);padding-top:clamp(32px,6vw,56px);border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,5vw,56px)}
+@media (max-width:800px){.promises{grid-template-columns:minmax(0,1fr)}}
+.promises ul{list-style:none;margin:0;padding:0;display:grid;gap:1.15rem}
+.promises li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:.85rem;align-items:start;font:300 1.12rem/1.55 var(--f-display)}
+.promises li svg{width:22px;height:22px;margin-top:.15rem}
+
+/* letter + reasons */
+.duo{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,5vw,56px);align-items:start}
+@media (max-width:800px){.duo{grid-template-columns:minmax(0,1fr)}}
+.letter{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:2rem clamp(1.2rem,4vw,2.4rem) 1rem;box-shadow:0 18px 30px -22px var(--shadow)}
+.letter-lines{font:300 1.08rem/2rem var(--f-display);font-variation-settings:"opsz" 24;background-image:linear-gradient(to bottom,transparent calc(2rem - 1px),var(--line) calc(2rem - 1px));background-size:100% 2rem}
+.letter-lines p{margin:0 0 2rem}
+.letter-lines .to{font:600 1.7rem/2rem var(--f-hand);color:var(--rose)}
+.letter-lines .from{font:600 1.7rem/2rem var(--f-hand);text-align:right;margin-bottom:1rem}
+.reason-card{background:var(--bg2);border:1px solid var(--line);border-radius:24px;padding:clamp(1.4rem,4vw,2rem)}
+.reason-card blockquote{margin:0;font:italic 300 clamp(1.3rem,3.4vw,1.7rem)/1.35 var(--f-display);min-height:6.2em;display:flex;align-items:center}
+.reason-card blockquote.pop{animation:fade .5s ease-out}
+.reason-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.2rem;flex-wrap:wrap}
+#reason-count{font-size:.88rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+
+footer{padding-block:2.5rem 5.5rem;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 1.5rem;align-items:center}
+
+/* poem */
+.poem-sec{padding-block:clamp(56px,9vw,100px)}
+.poem{max-width:30rem;margin-top:2rem;font:italic 300 clamp(1.25rem,3.2vw,1.6rem)/1.6 var(--f-display);font-variation-settings:"opsz" 72;color:var(--ink)}
+.poem p{margin:0 0 1.6em}
+.poem-sig{font:600 1.7rem/1 var(--f-hand);color:var(--rose)}
+
+/* fab, toast, sheet, lightbox */
+.fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:52px;height:52px;border-radius:50%;background:var(--rose);color:var(--on-rose);border:0;display:grid;place-items:center;box-shadow:0 10px 24px -8px var(--shadow);cursor:pointer;z-index:40}
+.fab svg{width:24px;height:24px}
+.eq rect{transform-box:fill-box;transform-origin:bottom;animation:eq 1s ease-in-out infinite}
+.eq rect:nth-child(2){animation-delay:.25s}
+.eq rect:nth-child(3){animation-delay:.5s}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.65rem 1rem;border-radius:12px;font-size:.9rem;max-width:calc(100vw - 32px);text-align:center;z-index:70}
+
+@keyframes breathe{from{transform:scale(1,1)}to{transform:scale(1.012,1.018)}}
+@keyframes squish{0%{transform:scale(1)}30%{transform:scale(1.07,.92)}60%{transform:scale(.98,1.03)}100%{transform:scale(1)}}
+@keyframes pat{0%{transform:rotate(0)}20%{transform:rotate(-5deg) translateY(4px)}45%{transform:rotate(4deg) translateY(2px)}70%{transform:rotate(-2deg)}100%{transform:rotate(0)}}
+@keyframes boop{0%{transform:scale(1)}30%{transform:scale(1.35,.75)}100%{transform:scale(1)}}
+@keyframes recoil{0%{transform:translateY(0)}30%{transform:translateY(5px)}100%{transform:translateY(0)}}
+@keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-9deg)}60%{transform:rotate(7deg)}}
+@keyframes wave{0%{transform:rotate(0)}18%{transform:rotate(-138deg)}36%{transform:rotate(-160deg)}54%{transform:rotate(-130deg)}72%{transform:rotate(-160deg)}88%{transform:rotate(-138deg)}100%{transform:rotate(0)}}
+@keyframes blink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+@keyframes up{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx),-170px) scale(1.1);opacity:0}}
+@keyframes popin{from{transform:translateX(-50%) scale(.92);opacity:0}to{transform:translateX(-50%) scale(1);opacity:1}}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes eq{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="blossom" viewBox="-22 -22 44 44">
+      <g fill="var(--rose-soft)" stroke="var(--rose)" stroke-width=".8">
+        <ellipse cx="0" cy="-10" rx="6.5" ry="10"/>
+        <ellipse cx="0" cy="-10" rx="6.5" ry="10" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-10" rx="6.5" ry="10" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-10" rx="6.5" ry="10" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-10" rx="6.5" ry="10" transform="rotate(288)"/>
+      </g>
+      <circle r="3.4" fill="var(--gold)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="hero">
+  <svg class="hero-art" viewBox="0 0 320 420" fill="none" aria-hidden="true">
+    <path d="M250 412 C242 322 212 252 152 172 C112 118 92 72 100 24" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round"/>
+    <g fill="var(--leaf)">
+      <ellipse cx="226" cy="352" rx="8" ry="20" transform="rotate(-52 226 352)"/>
+      <ellipse cx="252" cy="318" rx="8" ry="20" transform="rotate(50 252 318)"/>
+      <ellipse cx="196" cy="282" rx="8" ry="21" transform="rotate(-55 196 282)"/>
+      <ellipse cx="222" cy="244" rx="8" ry="21" transform="rotate(48 222 244)"/>
+      <ellipse cx="158" cy="206" rx="8" ry="21" transform="rotate(-58 158 206)"/>
+      <ellipse cx="170" cy="150" rx="8" ry="20" transform="rotate(44 170 150)"/>
+      <ellipse cx="116" cy="112" rx="7" ry="18" transform="rotate(-42 116 112)"/>
+      <ellipse cx="84" cy="62" rx="7" ry="17" transform="rotate(-40 84 62)"/>
+    </g>
+    <use href="#blossom" x="62" y="-10" width="76" height="76"/>
+    <use href="#blossom" x="170" y="168" width="58" height="58"/>
+    <use href="#blossom" x="214" y="300" width="50" height="50"/>
+  </svg>
+  <div class="wrap">
+    <div class="top">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22V10" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/><ellipse cx="7.5" cy="14" rx="2.2" ry="4.5" transform="rotate(-40 7.5 14)" fill="var(--leaf)"/><ellipse cx="16.5" cy="12" rx="2.2" ry="4.5" transform="rotate(40 16.5 12)" fill="var(--leaf)"/><circle cx="12" cy="7" r="4" fill="var(--rose-soft)" stroke="var(--rose)" stroke-width="1.2"/></svg>
+        Taman Kecil Kita
+      </span>
+    </div>
+    <div class="hero-body">
+      <p class="eyebrow">Khusus buat kamu, dari aku</p>
+      <h1>Hai, <em>Aulia</em>.</h1>
+      <p class="lede">Aku bikin tempat kecil ini buat kamu. Ada boneka yang pengen kenalan, surat-surat yang boleh kamu buka kapan aja, dan sedikit musik biar suasananya enak.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn primary" id="play">Puter musik</button>
+        <a class="btn ghost" href="#boneka">Kenalan sama Mochi</a>
+      </div>
+      <p class="counter" id="counter"></p>
+    </div>
+  </div>
+</header>
+
+<section class="band" id="boneka">
+  <div class="wrap doll-grid">
+    <div class="stage" id="stage">
+      <div class="bubble pop" id="bubble" role="status" aria-live="polite"></div>
+
+      <svg id="bear" viewBox="0 0 400 470" role="img" aria-label="Boneka beruang yang bisa dipeluk, dielus, dan diajak ngobrol">
+        <defs>
+          <radialGradient id="fur" cx="40%" cy="32%" r="80%"><stop offset="0" stop-color="#eacba3"/><stop offset=".55" stop-color="#cf9d6e"/><stop offset="1" stop-color="#a47044"/></radialGradient>
+          <radialGradient id="belly" cx="50%" cy="38%" r="72%"><stop offset="0" stop-color="#f7e1c2"/><stop offset="1" stop-color="#e0b98a"/></radialGradient>
+          <radialGradient id="muzzle" cx="50%" cy="32%" r="78%"><stop offset="0" stop-color="#f9e8cf"/><stop offset="1" stop-color="#dfb689"/></radialGradient>
+          <radialGradient id="earIn" cx="50%" cy="45%" r="65%"><stop offset="0" stop-color="#e9acaa"/><stop offset="1" stop-color="#c27c7d"/></radialGradient>
+          <linearGradient id="satin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9788f"/><stop offset=".5" stop-color="#c4526d"/><stop offset="1" stop-color="#8f2e47"/></linearGradient>
+          <radialGradient id="eyeG" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#5a3a30"/><stop offset=".5" stop-color="#24120f"/><stop offset="1" stop-color="#0e0605"/></radialGradient>
+          <radialGradient id="noseG" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#6b4a44"/><stop offset=".6" stop-color="#2a1612"/><stop offset="1" stop-color="#120807"/></radialGradient>
+          <filter id="furTex" x="-6%" y="-6%" width="112%" height="112%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 .36  0 0 0 0 .22  0 0 0 0 .12  0 0 0 .9 -.25" result="speck"/>
+            <feComposite in="speck" in2="d" operator="in" result="speckIn"/>
+            <feMerge><feMergeNode in="d"/><feMergeNode in="speckIn"/></feMerge>
+          </filter>
+          <filter id="blurF"><feGaussianBlur stdDeviation="6"/></filter>
+        </defs>
+
+        <ellipse cx="200" cy="452" rx="125" ry="13" fill="#3b1f2b" opacity=".22" filter="url(#blurF)"/>
+
+        <g id="legs" filter="url(#furTex)">
+          <ellipse cx="132" cy="400" rx="52" ry="42" fill="url(#fur)"/>
+          <ellipse cx="268" cy="400" rx="52" ry="42" fill="url(#fur)"/>
+        </g>
+
+        <g id="breath">
+          <g id="body" filter="url(#furTex)">
+            <ellipse cx="200" cy="318" rx="98" ry="104" fill="url(#fur)"/>
+            <ellipse cx="200" cy="335" rx="62" ry="72" fill="url(#belly)"/>
+            <ellipse cx="200" cy="385" rx="92" ry="38" fill="#7a4a2a" opacity=".1"/>
+          </g>
+          <path d="M200 352 C178 336 176 318 188 314 C195 312 200 318 200 322 C200 318 205 312 212 314 C224 318 222 336 200 352Z" fill="#c4526d" stroke="#f6d9df" stroke-width="1.3" stroke-dasharray="3 3"/>
+
+          <g id="feet">
+            <ellipse cx="132" cy="410" rx="30" ry="24" fill="#efcdbd"/>
+            <ellipse cx="132" cy="416" rx="13" ry="10" fill="#d4938f"/>
+            <circle cx="118" cy="399" r="4.6" fill="#d4938f"/><circle cx="132" cy="394" r="5" fill="#d4938f"/><circle cx="146" cy="399" r="4.6" fill="#d4938f"/>
+            <ellipse cx="268" cy="410" rx="30" ry="24" fill="#efcdbd"/>
+            <ellipse cx="268" cy="416" rx="13" ry="10" fill="#d4938f"/>
+            <circle cx="254" cy="399" r="4.6" fill="#d4938f"/><circle cx="268" cy="394" r="5" fill="#d4938f"/><circle cx="282" cy="399" r="4.6" fill="#d4938f"/>
+          </g>
+
+          <g id="armL" class="arm">
+            <g filter="url(#furTex)"><ellipse cx="98" cy="322" rx="34" ry="66" transform="rotate(14 98 322)" fill="url(#fur)"/></g>
+            <ellipse cx="86" cy="378" rx="18" ry="14" transform="rotate(14 86 378)" fill="#efcdbd"/>
+          </g>
+          <g id="armR" class="arm">
+            <g filter="url(#furTex)"><ellipse cx="302" cy="322" rx="34" ry="66" transform="rotate(-14 302 322)" fill="url(#fur)"/></g>
+            <ellipse cx="314" cy="378" rx="18" ry="14" transform="rotate(-14 314 378)" fill="#efcdbd"/>
+          </g>
+
+          <g id="headTilt"><g id="head">
+            <g filter="url(#furTex)">
+              <circle cx="128" cy="100" r="36" fill="url(#fur)"/>
+              <circle cx="272" cy="100" r="36" fill="url(#fur)"/>
+              <ellipse cx="130" cy="104" rx="21" ry="20" fill="url(#earIn)"/>
+              <ellipse cx="270" cy="104" rx="21" ry="20" fill="url(#earIn)"/>
+              <ellipse cx="200" cy="172" rx="96" ry="88" fill="url(#fur)"/>
+              <ellipse cx="168" cy="118" rx="52" ry="26" transform="rotate(-18 168 118)" fill="#fff" opacity=".13"/>
+              <ellipse cx="200" cy="206" rx="45" ry="35" fill="url(#muzzle)"/>
+            </g>
+            <ellipse class="blush" cx="128" cy="200" rx="19" ry="11" fill="#ee8c9f"/>
+            <ellipse class="blush" cx="272" cy="200" rx="19" ry="11" fill="#ee8c9f"/>
+
+            <g id="eyes">
+              <g class="eye">
+                <circle cx="158" cy="166" r="12.5" fill="url(#eyeG)"/>
+                <circle cx="153.5" cy="161.5" r="4.2" fill="#fff" opacity=".95"/>
+                <circle cx="163" cy="171" r="1.9" fill="#fff" opacity=".6"/>
+              </g>
+              <g class="eye">
+                <circle cx="242" cy="166" r="12.5" fill="url(#eyeG)"/>
+                <circle cx="237.5" cy="161.5" r="4.2" fill="#fff" opacity=".95"/>
+                <circle cx="247" cy="171" r="1.9" fill="#fff" opacity=".6"/>
+              </g>
+            </g>
+            <g class="happyEyes" fill="none" stroke="#24120f" stroke-width="4.2" stroke-linecap="round">
+              <path d="M145 169 q13 -15 26 0"/>
+              <path d="M229 169 q13 -15 26 0"/>
+            </g>
+
+            <g id="nose">
+              <path d="M184 190 C184 182 216 182 216 190 C216 200 206 208 200 208 C194 208 184 200 184 190Z" fill="url(#noseG)"/>
+              <ellipse cx="193" cy="189" rx="6" ry="3" fill="#fff" opacity=".5"/>
+            </g>
+            <path class="m-neutral" d="M200 208 V217 M200 217 C195 228 181 228 175 219 M200 217 C205 228 219 228 225 219" stroke="#3a1f18" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <g class="m-happy">
+              <path d="M180 218 C186 246 214 246 220 218 C210 224 190 224 180 218Z" fill="#4a1c24"/>
+              <ellipse cx="200" cy="235" rx="9" ry="5" fill="#e57a8a"/>
+            </g>
+            <g class="m-kiss">
+              <circle cx="200" cy="225" r="7" fill="#5a2a2a"/>
+              <circle cx="200" cy="225" r="3.4" fill="#7a3a3a"/>
+            </g>
+          </g></g>
+
+          <g id="bow">
+            <path d="M200 270 L172 308 L190 303 L196 318Z" fill="#a63a55"/>
+            <path d="M200 270 L228 308 L210 303 L204 318Z" fill="#a63a55"/>
+            <path d="M200 266 C178 244 150 252 152 268 C154 284 180 284 200 270Z" fill="url(#satin)"/>
+            <path d="M200 266 C222 244 250 252 248 268 C246 284 220 284 200 270Z" fill="url(#satin)"/>
+            <path d="M190 262 C174 254 162 258 160 266" stroke="#f6b9c7" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
+            <path d="M210 262 C226 254 238 258 240 266" stroke="#f6b9c7" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
+            <ellipse cx="200" cy="268" rx="11" ry="12" fill="url(#satin)"/>
+          </g>
+        </g>
+
+        <g id="hits" aria-hidden="true">
+          <ellipse class="hit" data-do="pat" cx="200" cy="165" rx="98" ry="95"/>
+          <ellipse class="hit" data-do="hug" cx="200" cy="335" rx="80" ry="78"/>
+          <ellipse class="hit" data-do="bow" cx="200" cy="278" rx="52" ry="30"/>
+          <ellipse class="hit" data-do="boop" cx="200" cy="197" rx="20" ry="16"/>
+        </g>
+      </svg>
+
+      <div class="hearts" id="hearts" aria-hidden="true"></div>
+    </div>
+
+    <div class="doll-copy">
+      <p class="eyebrow">Temen kecil kamu</p>
+      <h2>Kenalan sama <em>Mochi</em></h2>
+      <p class="sub">Dia pemalu, tapi suka banget dipeluk. Coba pegang kepalanya, perutnya, atau hidungnya, terus lihat deh dia ngapain.</p>
+      <div class="doll-actions">
+        <button type="button" class="btn soft" data-do="hug">Peluk</button>
+        <button type="button" class="btn soft" data-do="pat">Elus kepala</button>
+        <button type="button" class="btn soft" data-do="kiss">Kirim cium</button>
+        <button type="button" class="btn soft" data-do="chat">Ajak ngobrol</button>
+      </div>
+      <p class="tally" id="tally"></p>
+    </div>
+  </div>
+</section>
+
+<section class="letters-sec" id="surat">
+  <div class="wrap">
+    <p class="eyebrow">Surat-surat kecil</p>
+    <h2>Buka kalau kamu lagi&hellip;</h2>
+    <p class="sub">Aku nyiapin beberapa surat buat hari-hari tertentu. Pilih satu, terus buka pas kamu lagi butuh.</p>
+    <div class="env-grid">
+      <article class="env">
+        <button type="button" class="env-btn" aria-expanded="false" aria-controls="p1">
+          <span class="env-art" aria-hidden="true"><span class="flap"></span><span class="seal"><svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5 15 1 11.5 1 7a5.5 5.5 0 0 1 11-1 5.5 5.5 0 0 1 11 1c0 4.5-4 8-11 14z"/></svg></span></span>
+          <span class="env-label">Buka kalau kamu lagi<strong>kangen aku</strong></span>
+        </button>
+        <div class="paper" id="p1" hidden><p>Aku juga lagi kangen kamu, kok. Tarik napas dulu, terus bayangin aku lagi duduk di sebelah kamu, diem-diem aja sambil pegang tangan kamu.Im Here for you sayaangku.</p></div>
+      </article>
+      <article class="env">
+        <button type="button" class="env-btn" aria-expanded="false" aria-controls="p2">
+          <span class="env-art" aria-hidden="true"><span class="flap"></span><span class="seal"><svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5 15 1 11.5 1 7a5.5 5.5 0 0 1 11-1 5.5 5.5 0 0 1 11 1c0 4.5-4 8-11 14z"/></svg></span></span>
+          <span class="env-label">Buka kalau kamu lagi<strong>lagi sedih</strong></span>
+        </button>
+        <div class="paper" id="p2" hidden><p>Nggak apa-apa kalau hari ini berat. Kamu nggak harus kuat terus. Mau nangis boleh, mau cerita boleh, mau diem juga boleh. Aku di sini, dan aku nggak ke mana-mana.</p></div>
+      </article>
+      <article class="env">
+        <button type="button" class="env-btn" aria-expanded="false" aria-controls="p3">
+          <span class="env-art" aria-hidden="true"><span class="flap"></span><span class="seal"><svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5 15 1 11.5 1 7a5.5 5.5 0 0 1 11-1 5.5 5.5 0 0 1 11 1c0 4.5-4 8-11 14z"/></svg></span></span>
+          <span class="env-label">Buka kalau kamu lagi<strong>susah tidur</strong></span>
+        </button>
+        <div class="paper" id="p3" hidden><p>Matiin layarnya dulu ya. Hari ini kamu udah berusaha banyak, besok bisa dilanjut pelan-pelan. Semoga mimpinya ada aku di dalamnya, atau minimal yang indah-indah. Met tidur, sayang.</p></div>
+      </article>
+      <article class="env">
+        <button type="button" class="env-btn" aria-expanded="false" aria-controls="p4">
+          <span class="env-art" aria-hidden="true"><span class="flap"></span><span class="seal"><svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5 15 1 11.5 1 7a5.5 5.5 0 0 1 11-1 5.5 5.5 0 0 1 11 1c0 4.5-4 8-11 14z"/></svg></span></span>
+          <span class="env-label">Buka kalau kamu lagi<strong>lagi seneng</strong></span>
+        </button>
+        <div class="paper" id="p4" hidden><p>Aku seneng banget liat kamu seneng. Ceritain semuanya ke aku ya, sampai hal yang paling kecil. Aku suka banget dengerin kamu kalau lagi kayak gini.</p></div>
+      </article>
+    </div>
+    <div class="promises">
+      <div>
+        <p class="eyebrow">Janji kecil</p>
+        <h2>Dari aku, buat kamu</h2>
+      </div>
+      <ul>
+        <li><svg aria-hidden="true" width="22" height="22"><use href="#blossom" width="22" height="22"/></svg><span>Aku bakal dengerin kamu, bahkan pas ceritanya diulang-ulang.</span></li>
+        <li><svg aria-hidden="true" width="22" height="22"><use href="#blossom" width="22" height="22"/></svg><span>Aku bakal bilang sayang, bukan cuma pas lagi inget.</span></li>
+        <li><svg aria-hidden="true" width="22" height="22"><use href="#blossom" width="22" height="22"/></svg><span>Aku bakal sabar, dan belajar jadi lebih sabar lagi.</span></li>
+        <li><svg aria-hidden="true" width="22" height="22"><use href="#blossom" width="22" height="22"/></svg><span>Aku bakal ada, di hari yang bagus maupun hari yang ngeselin.</span></li>
+        <li><svg aria-hidden="true" width="22" height="22"><use href="#blossom" width="22" height="22"/></svg><span>Aku bakal terus milih kamu, tiap hari.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap duo">
+    <article class="letter">
+      <p class="eyebrow">Surat kecil</p>
+      <div class="letter-lines">
+        <p class="to">Buat Aulia,</p>
+        <p>Aku bikin halaman kecil ini bukan karena hari ini spesial. Aku pengen ajaaa hehee.</p>
+        <p>Love My Bini My World My everything my lovelyyy.</p>
+        <p class="from">Dari Zakka</p>
+      </div>
+    </article>
+    <div class="reason-card">
+      <p class="eyebrow">Alasan kecil</p>
+      <blockquote id="reason">Banyak banget sih. Aku mulai dari yang kecil dulu ya.</blockquote>
+      <div class="reason-foot">
+        <span id="reason-count">0 dari 8</span>
+        <button type="button" class="btn primary" id="btn-reason">Satu alasan</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="poem-sec" id="puisi">
+  <div class="wrap">
+    <p class="eyebrow">Puisi kecil</p>
+    <h2>Enough</h2>
+    <div class="poem">
+      <p>The world asks what is real.<br>I say: Aulia,<br>the way you laugh,<br>the way a room grows quiet<br>when you walk in.</p>
+      <p>Time may take the days,<br>but not the fact that we were here,<br>and loved,<br>and that it was enough.</p>
+      <p class="poem-sig">Zakka</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Dibikin pelan-pelan buat Aulia, dari Zakka.</span>
+  </div>
+</footer>
+
+<button type="button" class="fab" id="fab" aria-pressed="false" aria-label="Puter musik">
+  <svg id="ico-note" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V6l10-2v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg>
+  <svg id="ico-eq" class="eq" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><rect x="4" y="4" width="4" height="16" rx="2"/><rect x="10" y="4" width="4" height="16" rx="2"/><rect x="16" y="4" width="4" height="16" rx="2"/></svg>
+</button>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- data kita ---------- */
+  var HER='Aulia',HIM='Zakka',BEAR='Mochi',JADIAN=[2026,8,30]; /* tahun, bulan, tanggal */
+  function fmt(s){return s.replace(/\{her\}/g,HER).replace(/\{him\}/g,HIM).replace(/\{bear\}/g,BEAR)}
+  function showDays(){
+    var a=new Date(JADIAN[0],JADIAN[1]-1,JADIAN[2]),b=new Date(),c=$('#counter');
+    var n=Math.round((new Date(b.getFullYear(),b.getMonth(),b.getDate())-a)/864e5);
+    if(n<0){c.hidden=true;return}
+    c.innerHTML='Udah <strong>'+n.toLocaleString('id-ID')+'</strong> hari kita jalan bareng, dan aku masih suka senyum-senyum sendiri.';
+  }
+
+  /* ---------- toast ---------- */
+  var toastT;
+  function toast(t){var el=$('#toast');el.textContent=t;el.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){el.hidden=true},3200)}
+
+  /* ---------- audio ---------- */
+  var AC=null,master=null,reverbIn=null,musicBus=null,sfxBus=null,playing=false,timer=null,nextIdx=0,loopBase=0;
+  var BEAT=60/78;
+  var mtof=function(m){return 440*Math.pow(2,(m-69)/12)};
+  var CH=[[48,55,64,60,64,67],[45,52,60,57,60,64],[41,48,57,57,60,65],[43,50,59,55,59,62]];
+  var PROG=[0,1,2,3,0,1,2,3];
+  var MEL=[[76,1],[79,1],[76,1],[81,2],[79,1],[77,1],[81,1],[77,1],[79,2],[74,1],[76,1],[79,1],[84,1],[83,2],[81,1],[81,1],[79,1],[77,1],[74,1],[76,2]];
+  var EVENTS=(function(){
+    var ev=[],t=0,i;
+    MEL.forEach(function(n){ev.push({t:t,m:n[0],d:1.9,v:.2,k:'n'});t+=n[1]});
+    PROG.forEach(function(c,b){
+      var base=b*3,ch=CH[c];
+      ev.push({t:base,m:ch[0],d:1.6,v:.12,k:'n'});
+      ev.push({t:base+1,m:ch[1],d:1.5,v:.09,k:'n'});
+      ev.push({t:base+2,m:ch[2],d:1.5,v:.09,k:'n'});
+      ev.push({t:base,ms:[ch[3],ch[4],ch[5]],d:3*BEAT+.9,v:.03,k:'p'});
+    });
+    ev.sort(function(a,b){return a.t-b.t});
+    return ev;
+  })();
+  var LOOP=24;
+  function ensureAudio(){
+    if(!AC){
+      var C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
+      AC=new C();
+      master=AC.createGain();master.gain.value=.9;master.connect(AC.destination);
+      var conv=AC.createConvolver(),len=Math.floor(AC.sampleRate*2.6),buf=AC.createBuffer(2,len,AC.sampleRate);
+      for(var c=0;c<2;c++){var d=buf.getChannelData(c);for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.4)}
+      conv.buffer=buf;var wet=AC.createGain();wet.gain.value=.36;conv.connect(wet);wet.connect(master);reverbIn=conv;
+      sfxBus=AC.createGain();sfxBus.gain.value=.55;sfxBus.connect(master);sfxBus.connect(reverbIn);
+    }
+    if(AC.state==='suspended')AC.resume();
+    return AC;
+  }
+  function voice(freq,t,dur,vol,dest){
+    var o=AC.createOscillator(),o2=AC.createOscillator(),g=AC.createGain(),g2=AC.createGain();
+    o.type='sine';o.frequency.value=freq;o2.type='triangle';o2.frequency.value=freq*2;g2.gain.value=.18;
+    o2.connect(g2);g2.connect(g);o.connect(g);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    g.connect(dest);o.start(t);o2.start(t);o.stop(t+dur+.05);o2.stop(t+dur+.05);
+  }
+  function pad(freqs,t,dur,vol,dest){
+    freqs.forEach(function(f){
+      var o=AC.createOscillator(),g=AC.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(vol,t+.7);g.gain.linearRampToValueAtTime(.0001,t+dur);
+      o.connect(g);g.connect(dest);o.start(t);o.stop(t+dur+.05);
+    });
+  }
+  function tick(){
+    if(!AC||!playing)return;
+    var horizon=AC.currentTime+.7,guard=0;
+    while(guard++<400){
+      var ev=EVENTS[nextIdx],when=loopBase+ev.t*BEAT;
+      if(when>horizon)break;
+      if(when>=AC.currentTime-.05){
+        var at=Math.max(when,AC.currentTime);
+        if(ev.k==='p')pad(ev.ms.map(mtof),at,ev.d,ev.v,musicBus);else voice(mtof(ev.m),at,ev.d,ev.v,musicBus);
+      }
+      nextIdx++;
+      if(nextIdx>=EVENTS.length){nextIdx=0;loopBase+=LOOP*BEAT}
+    }
+  }
+  function startMusic(){
+    if(!ensureAudio()){toast('Browser ini belum bisa muter audio.');return}
+    musicBus=AC.createGain();musicBus.gain.setValueAtTime(0,AC.currentTime);musicBus.gain.linearRampToValueAtTime(.55,AC.currentTime+1.4);
+    musicBus.connect(master);musicBus.connect(reverbIn);
+    loopBase=AC.currentTime+.2;nextIdx=0;playing=true;tick();timer=setInterval(tick,180);
+    ui();
+  }
+  function stopMusic(){
+    playing=false;clearInterval(timer);
+    if(musicBus){var b=musicBus;b.gain.cancelScheduledValues(AC.currentTime);b.gain.setValueAtTime(b.gain.value,AC.currentTime);b.gain.linearRampToValueAtTime(0,AC.currentTime+.6);setTimeout(function(){try{b.disconnect()}catch(e){}},900)}
+    ui();
+  }
+  function toggleMusic(){playing?stopMusic():startMusic()}
+  function ui(){
+    $('#play').textContent=playing?'Jeda dulu':'Puter musik';
+    var f=$('#fab');f.setAttribute('aria-pressed',playing?'true':'false');f.setAttribute('aria-label',playing?'Jeda musik':'Puter musik');
+    $('#ico-note').hidden=playing;$('#ico-eq').hidden=!playing;
+  }
+  $('#play').addEventListener('click',toggleMusic);
+  $('#fab').addEventListener('click',toggleMusic);
+  function sfx(kind){
+    if(!ensureAudio())return;
+    var seq={pat:[84,88],hug:[72,76,79],kiss:[88,91,95],boop:[96],chat:[79,84],reason:[84,88,91]}[kind]||[84];
+    var t=AC.currentTime+.01;
+    seq.forEach(function(m,i){voice(mtof(m),t+i*.09,1.1,.16,sfxBus)});
+  }
+
+  /* ---------- bear ---------- */
+  var bearEl=$('#bear'),bubble=$('#bubble'),headEl=$('#head'),bodyEl=$('#body'),noseEl=$('#nose'),bowEl=$('#bow');
+  var L={
+    greet:['Hai {her}! Aku {bear}. Aku dititipin {him} buat jagain kamu.'],
+    pat:['Hehe, di situ enak banget.','Elus lagi dong, dikit lagi.','Katanya kamu juga suka dielus kepalanya. Rahasia kita ya.','Aku jadi ngantuk, tapi enak.'],
+    hug:['Pelukannya nyampe. Anget kan?','Sini, lebih deket lagi.','Ini peluk dari aku, satu lagi titipan dari {him}.','Jangan dilepas dulu, bentar lagi.'],
+    kiss:['Mmuah! Itu dari {him}, aku cuma kurirnya.','Pipiku jadi merah nih.','Satu cium, udah nyampe ya.'],
+    boop:['Eh, hidungku! Geli tau.','Boop! Satu poin buat kamu.','Hidung ini bukan tombol lho. Tapi boleh deh.'],
+    bow:['Pitanya warna kesukaan kamu, katanya.','Pita ini dipilihin {him} khusus buat aku.'],
+    chat:['Udah makan belum? Jangan telat ya.','Kalau capek, istirahat dulu ya. Aku jagain.','Hari ini kamu udah hebat, aku lihat kok.','Minum dulu yuk, abis itu lanjut lagi.','Kalau mau cerita, aku dengerin.','Tau nggak, {him} sering senyum-senyum sendiri kalau lagi mikirin kamu.']
+  };
+  var lastPick={};
+  function pick(key){var a=L[key],i;do{i=Math.floor(Math.random()*a.length)}while(a.length>1&&i===lastPick[key]);lastPick[key]=i;return a[i]}
+  function say(t){bubble.textContent=fmt(t);bubble.classList.remove('pop');void bubble.offsetWidth;bubble.classList.add('pop')}
+  function anim(el,cls){
+    el.classList.remove(cls);void el.getBoundingClientRect();el.classList.add(cls);
+    el.addEventListener('animationend',function h(){el.classList.remove(cls);el.removeEventListener('animationend',h)});
+  }
+  var moodT,hugT;
+  function mood(kind,ms){
+    bearEl.classList.remove('s-happy','s-kiss');bearEl.classList.add('s-'+kind,'blushing');
+    clearTimeout(moodT);moodT=setTimeout(function(){bearEl.classList.remove('s-happy','s-kiss','blushing')},ms);
+  }
+  function hugPose(ms){bearEl.classList.add('hugging');clearTimeout(hugT);hugT=setTimeout(function(){bearEl.classList.remove('hugging')},ms)}
+  function wave(){bearEl.classList.remove('waving');void bearEl.getBoundingClientRect();bearEl.classList.add('waving');setTimeout(function(){bearEl.classList.remove('waving')},2300)}
+  var HEART='<svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5 15 1 11.5 1 7a5.5 5.5 0 0 1 11-1 5.5 5.5 0 0 1 11 1c0 4.5-4 8-11 14z"/></svg>';
+  function hearts(n,big){
+    var box=$('#hearts');
+    for(var i=0;i<n;i++){
+      var h=document.createElement('span'),size=(big?20:14)+Math.random()*(big?16:10);
+      h.className='heart';
+      h.style.cssText='left:'+(38+Math.random()*24)+'%;top:'+(30+Math.random()*10)+'%;width:'+size+'px;height:'+size+'px;--dx:'+((Math.random()-.5)*110)+'px;animation-delay:'+(i*70)+'ms;animation-duration:'+(1.5+Math.random()*.9)+'s';
+      h.innerHTML=HEART;box.appendChild(h);
+      (function(el){setTimeout(function(){el.remove()},3000+i*70)})(h);
+    }
+  }
+  var cnt={hug:0,pat:0,kiss:0};
+  function tally(){$('#tally').textContent='Pelukan '+cnt.hug+'  ·  Elusan '+cnt.pat+'  ·  Cium '+cnt.kiss}
+  var act={
+    pat:function(){cnt.pat++;anim(headEl,'a-pat');mood('happy',1800);hearts(5);sfx('pat');say(pick('pat'))},
+    hug:function(){
+      cnt.hug++;hugPose(2200);anim(bodyEl,'a-squish');mood('happy',2400);hearts(9,true);sfx('hug');
+      say(cnt.hug%5===0?'Pelukan ke-'+cnt.hug+'! Kamu resmi jadi temen terbaikku.':pick('hug'));
+    },
+    kiss:function(){cnt.kiss++;mood('kiss',1700);anim(headEl,'a-recoil');hearts(12,true);sfx('kiss');say(pick('kiss'))},
+    boop:function(){anim(noseEl,'a-boop');anim(headEl,'a-recoil');sfx('boop');say(pick('boop'))},
+    bow:function(){anim(bowEl,'a-wiggle');hearts(3);sfx('chat');say(pick('bow'))},
+    chat:function(){wave();sfx('chat');say(pick('chat'))}
+  };
+  $$('[data-do]').forEach(function(el){
+    el.addEventListener('click',function(){var f=act[el.getAttribute('data-do')];if(f){f();tally()}});
+  });
+  var eyes=$('#eyes'),tilt=$('#headTilt');
+  window.addEventListener('pointermove',function(e){
+    if(reduced)return;
+    var r=bearEl.getBoundingClientRect();
+    if(r.bottom<0||r.top>innerHeight)return;
+    var cx=r.left+r.width*.5,cy=r.top+r.height*.36,dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy)||1,k=Math.min(1,d/260);
+    eyes.style.transform='translate('+(dx/d*5*k).toFixed(2)+'px,'+(dy/d*4*k).toFixed(2)+'px)';
+    var tl=Math.max(-5,Math.min(5,dx/Math.max(innerWidth,1)*10));
+    tilt.style.transform='rotate('+tl.toFixed(2)+'deg)';
+  },{passive:true});
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){es.forEach(function(en){bearEl.classList.toggle('paused',!en.isIntersecting)})}).observe(bearEl);
+  }
+
+  /* ---------- reasons ---------- */
+  var REASONS=['Kamu bikin hari biasa jadi terasa lebih ringan.','Cara kamu ketawa, bahkan buat hal yang nggak lucu.','Kamu sabar sama aku di hari-hari aku lagi nggak sabaran.','Ada kamu, di mana aja rasanya kayak rumah.','Kamu inget hal-hal kecil yang orang lain lewatin.','Kamu bikin aku pengen jadi versi yang lebih baik.','Diem-dieman bareng kamu aja udah enak.','Karena itu kamu. Udah, itu aja cukup.'];
+  var order=[],shown=0;
+  function shuffle(){order=REASONS.map(function(_,i){return i});for(var i=order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=order[i];order[i]=order[j];order[j]=t}}
+  $('#btn-reason').addEventListener('click',function(){
+    var q=$('#reason');
+    if(shown>=REASONS.length){q.textContent='Masih banyak lagi, tapi sisanya aku bilang langsung aja ya.';shown=0;order=[];$('#reason-count').textContent='8 dari 8'}
+    else{
+      if(!order.length)shuffle();
+      q.textContent=REASONS[order[shown]];shown++;$('#reason-count').textContent=shown+' dari 8';
+    }
+    q.classList.remove('pop');void q.offsetWidth;q.classList.add('pop');sfx('reason');
+  });
+
+  /* ---------- surat-surat ---------- */
+  $$('.env-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var paper=document.getElementById(b.getAttribute('aria-controls')),open=b.getAttribute('aria-expanded')==='true';
+      b.setAttribute('aria-expanded',open?'false':'true');
+      b.parentNode.classList.toggle('is-open',!open);
+      paper.hidden=open;
+      if(!open){paper.classList.remove('pop');void paper.offsetWidth;paper.classList.add('pop');sfx('reason')}
+    });
+  });
+
+  /* ---------- start ---------- */
+  showDays();tally();ui();
+  say(L.greet[0]);
+  setTimeout(wave,900);
+  setInterval(function(){if(!document.hidden&&!bearEl.classList.contains('paused')&&!bearEl.classList.contains('hugging'))wave()},32000);
+})();
+</script>
